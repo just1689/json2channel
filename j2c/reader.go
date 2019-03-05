@@ -1,4 +1,4 @@
-package json2chan
+package j2c
 
 import (
 	"fmt"
@@ -89,6 +89,7 @@ func ReadInnerArr(in chan byte) (out chan byte) {
 	return out
 }
 
+//ReadJsonObjects writes json objects to a channel
 func ReadJsonObjects(in chan byte, out chan string) {
 	go func() {
 		object := ""

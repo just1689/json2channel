@@ -1,4 +1,4 @@
-package json2chan
+package j2c
 
 var QUOTE byte = []byte(`"`)[0]
 var LB byte = []byte(`[`)[0]
