@@ -38,11 +38,7 @@ var bytesNestedMessy = []byte(`{
 }`)
 
 func TestReadJsonObjects(t *testing.T) {
-	expected := make(map[interface{}]string)
-	expected["value1"] = ""
-	expected["value2"] = ""
-	expected["value3"] = ""
-	expected["value4"] = ""
+	expected := getExpectedMap()
 
 	in := make(chan byte)
 	out := ReadObjects(in, "list")
@@ -70,11 +66,7 @@ func TestReadJsonObjects(t *testing.T) {
 }
 
 func TestReadJsonObjectsMessyNames(t *testing.T) {
-	expected := make(map[interface{}]string)
-	expected["value1"] = ""
-	expected["value2"] = ""
-	expected["value3"] = ""
-	expected["value4"] = ""
+	expected := getExpectedMap()
 
 	in := make(chan byte)
 	out := ReadObjects(in, "list")
@@ -102,11 +94,7 @@ func TestReadJsonObjectsMessyNames(t *testing.T) {
 }
 
 func TestReadJsonObjectsNestedMessy(t *testing.T) {
-	expected := make(map[interface{}]string)
-	expected["value1"] = ""
-	expected["value2"] = ""
-	expected["value3"] = ""
-	expected["value4"] = ""
+	expected := getExpectedMap()
 
 	in := make(chan byte)
 	out := ReadObjects(in, "list")
