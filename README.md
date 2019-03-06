@@ -7,7 +7,7 @@ Reads a json stream and writes items from the json array to a channel
 Have you ever had to retrieve items in an array that are part of a large json payload? This might help!
 
 # State of the project
-<img src="https://img.shields.io/badge/State-unstable-dd1111.svg" />
+<img src="https://img.shields.io/badge/State-unstable-dd1111.svg" />&nbsp;<img src="https://europe-west1-captains-badges.cloudfunctions.net/function-clone-badge-pc?project=just1689/json2channel" /><br />
 
 # Usage
 
