@@ -27,7 +27,7 @@ func (f *ChanReader) Next() (b byte, eof bool) {
 		}
 		f.current = item
 		f.position = 0
-		f.len = len(f.current.Bytes)
+		f.len = len(f.current.bytes)
 	}
 
 	if f.position >= f.len {
@@ -35,7 +35,7 @@ func (f *ChanReader) Next() (b byte, eof bool) {
 		return
 	}
 
-	b = f.current.Bytes[f.position]
+	b = f.current.bytes[f.position]
 	f.position++
 
 	return
@@ -54,11 +54,11 @@ func StartFileReader(filename string) *ChanReader {
 		defer f.Close()
 		for {
 			p := &frame{
-				Bytes: make([]byte, 4096),
+				bytes: make([]byte, 4096),
 			}
 
-			p.Bytes = p.Bytes[:cap(p.Bytes)]
-			n, err := f.Read(p.Bytes)
+			p.bytes = p.bytes[:cap(p.bytes)]
+			n, err := f.Read(p.bytes)
 			if err != nil {
 				if err == io.EOF {
 					break
@@ -66,7 +66,7 @@ func StartFileReader(filename string) *ChanReader {
 				fmt.Println(err)
 				return
 			}
-			p.Bytes = p.Bytes[:n]
+			p.bytes = p.bytes[:n]
 			fileReader.in <- p
 
 		}
@@ -87,7 +87,7 @@ func StartByteReader(bytes []byte) *ChanReader {
 
 	go func() {
 		fileReader.in <- &frame{
-			Bytes: bytes,
+			bytes: bytes,
 		}
 		fileReader.in <- &frame{
 			eof: false,
@@ -97,6 +97,6 @@ func StartByteReader(bytes []byte) *ChanReader {
 }
 
 type frame struct {
-	Bytes []byte
+	bytes []byte
 	eof   bool
 }
