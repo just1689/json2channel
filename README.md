@@ -1,5 +1,6 @@
 # Json 2 Channel
-<img src="https://goreportcard.com/badge/github.com/just1689/json2channel" />&nbsp;<a href="https://codeclimate.com/github/just1689/json2channel/maintainability"><img src="https://api.codeclimate.com/v1/badges/d1d1fac9de319a350ca3/maintainability" /></a>
+<img src="https://goreportcard.com/badge/github.com/just1689/json2channel" />&nbsp;<a href="https://codeclimate.com/github/just1689/json2channel/maintainability"><img src="https://api.codeclimate.com/v1/badges/d1d1fac9de319a350ca3/maintainability" /></a>&nbsp;<a href="https://codebeat.co/projects/github-com-just1689-json2channel-master"><img alt="codebeat badge" src="https://codebeat.co/badges/6e12c23a-78aa-4da7-a536-2081c91f298d" /></a>
+
 
 Reads a json stream and writes items from the json array to a channel
 
