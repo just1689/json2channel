@@ -31,6 +31,18 @@ Call the library
 - `ch` is a channel that accepts bytes.
 - The output `out` is a channel that receives objects as strings as they are made available.
 
+Output
+
+{"key":  "value1"}
+
+{"key":  "value2"}
+
+{"key":  "value3"}
+
+{"key":  "value4"}
+
+
+
 # Performance 
 Currently, in small tests the library produces over 55,000 items per second.
 
