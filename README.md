@@ -25,6 +25,6 @@ Call the library
 - The output `out` is a channel that receives objects as strings as they are made available.
 
 # Performance 
-Currently, in small tests the library produces over 55,000 items per second.
+Currently, in small tests the library produces over 80k items per second.
 
  

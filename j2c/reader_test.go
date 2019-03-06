@@ -40,14 +40,8 @@ var bytesNestedMessy = []byte(`{
 func TestReadJsonObjects(t *testing.T) {
 	expected := getExpectedMap()
 
-	in := make(chan byte)
+	in := StartByteReader(bytes)
 	out := ReadObjects(in, "list")
-
-	go func() {
-		for _, b := range bytes {
-			in <- b
-		}
-	}()
 
 	var item = Item{}
 	for s := range out {
@@ -68,14 +62,8 @@ func TestReadJsonObjects(t *testing.T) {
 func TestReadJsonObjectsMessyNames(t *testing.T) {
 	expected := getExpectedMap()
 
-	in := make(chan byte)
+	in := StartByteReader(bytesMessy)
 	out := ReadObjects(in, "list")
-
-	go func() {
-		for _, b := range bytesMessy {
-			in <- b
-		}
-	}()
 
 	var item = Item{}
 	for s := range out {
@@ -96,14 +84,8 @@ func TestReadJsonObjectsMessyNames(t *testing.T) {
 func TestReadJsonObjectsNestedMessy(t *testing.T) {
 	expected := getExpectedMap()
 
-	in := make(chan byte)
+	in := StartByteReader(bytesNestedMessy)
 	out := ReadObjects(in, "list")
-
-	go func() {
-		for _, b := range bytesNestedMessy {
-			in <- b
-		}
-	}()
 
 	var item = Item{}
 	for s := range out {

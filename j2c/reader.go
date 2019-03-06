@@ -6,14 +6,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func ReadObjectsToFunc(in chan byte, element string, f func(s string)) {
-	out := ReadObjects(in, element)
-	for o := range out {
-		f(o)
-	}
-}
-
-func ReadObjects(in chan byte, element string) (out chan string) {
+func ReadObjects(in Reader, element string) (out chan string) {
 	out = make(chan string)
 	go func() {
 		found := ReadUntilGivenElement(in, element)
@@ -28,7 +21,7 @@ func ReadObjects(in chan byte, element string) (out chan string) {
 	return out
 }
 
-func ReadUntilGivenElement(in chan byte, element string) (found bool) {
+func ReadUntilGivenElement(in Reader, element string) (found bool) {
 	found = false
 	var eof bool
 	word := ""
@@ -46,10 +39,16 @@ func ReadUntilGivenElement(in chan byte, element string) (found bool) {
 	return
 }
 
-func ReadUntilNextElement(in chan byte) (found bool, word string, eof bool) {
+func ReadUntilNextElement(in Reader) (found bool, word string, eof bool) {
 	isWord := false
 	word = ""
-	for letter := range in {
+	var letter byte
+
+	for {
+		letter, eof = in.Next()
+		if eof {
+			return
+		}
 		if letter == QUOTE {
 			if isWord {
 				found = true
@@ -63,15 +62,24 @@ func ReadUntilNextElement(in chan byte) (found bool, word string, eof bool) {
 		}
 
 	}
+
+	eof = true
 	return
 }
 
-func ReadInnerArr(in chan byte) (out chan byte) {
+func ReadInnerArr(in Reader) (out chan byte) {
 	out = make(chan byte)
 	go func() {
 		countLB := 0
 		countRB := 0
-		for c := range in {
+		var c byte
+		var eof bool
+		for {
+			c, eof = in.Next()
+			if eof {
+				close(out)
+				return
+			}
 			if c == LB {
 				countLB++
 			} else if c == RB {
@@ -89,7 +97,6 @@ func ReadInnerArr(in chan byte) (out chan byte) {
 	return out
 }
 
-//ReadJsonObjects writes json objects to a channel
 func ReadJsonObjects(in chan byte, out chan string) {
 	go func() {
 		object := ""
