@@ -1,4 +1,5 @@
 # Json 2 Channel
+<img src="https://goreportcard.com/badge/github.com/just1689/json2channel" />
 Reads a json stream and writes items from the json array to a channel
 
 Have you ever had to retrieve items in an array that are part of a large json payload? This might help!
