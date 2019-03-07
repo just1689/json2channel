@@ -12,7 +12,7 @@ This library reads a json stream, picks out items from a json array and writes t
 
 # Usage
 
-Given the string
+Given the file `test.json`
 ```json
 {
   "list": [
@@ -26,7 +26,15 @@ Given the string
 
 Call the library
 
-`out := j2s.ReadObjects(ch, "list")`
+```go
+	in := j2c.StartFileReader("test.json")
+	out := j2c.ReadObjects(in, "list")
+
+	for o := range out {
+		fmt.Println(o)
+	}
+
+```
 
 - `ch` is a channel that accepts bytes.
 - The output `out` is a channel that receives objects as strings as they are made available.
