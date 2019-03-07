@@ -63,8 +63,6 @@ func ReadUntilNextElement(in Reader) (found bool, word string, eof bool) {
 
 	}
 
-	eof = true
-	return
 }
 
 func ReadInnerArr(in Reader) (out chan byte) {
