@@ -28,7 +28,7 @@ func ReadUntilNextElement(in Reader) (found bool, word string, eof bool) {
 		if eof {
 			return
 		}
-		if letter == QUOTE {
+		if letter == Quote {
 			if isWord {
 				found = true
 				return

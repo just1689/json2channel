@@ -42,14 +42,6 @@ func (i *Interpreter) Next() (b byte, eof bool) {
 	return
 }
 
-func (i *Interpreter) Depth() int {
-	return i.ls - i.rs
-}
-
-func (i *Interpreter) InArr() bool {
-	return i.lb > i.rb
-}
-
-func (i *Interpreter) IsStarted() bool {
-	return i.ls-i.rs == 1
+func (i *Interpreter) IsSkip() bool {
+	return i.lb < 1 || i.ls == 0
 }

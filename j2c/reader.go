@@ -32,34 +32,25 @@ func readArr(interpreter *Interpreter, out chan string) {
 			return
 		}
 
-		if interpreter.lb < 1 {
-			continue
-		}
 		if b == LB && interpreter.lb == 1 {
 			interpreter.ResetSquiggly()
+			continue
+		}
+		if interpreter.IsSkip() {
 			continue
 		}
 		if interpreter.lb == interpreter.rb {
 			return
 		}
 
-		if interpreter.ls == 0 {
-			continue
-		}
-
 		if interpreter.ls == interpreter.rs && b == RS {
-
 			word += string(b)
 			out <- word
 			word = ""
 			interpreter.ResetSquiggly()
-
 			continue
-
 		}
 
 		word += string(b)
-
 	}
-
 }
