@@ -27,16 +27,15 @@ Given the file `test.json`
 Call the library
 
 ```go
-	in := j2c.StartFileReader("test.json")
-	out := j2c.ReadObjects(in, "list")
+in := j2c.StartFileReader("test.json")
+out := j2c.ReadObjects(in, "list")
 
-	for o := range out {
-		fmt.Println(o)
-	}
+for o := range out {
+    fmt.Println(o)
+}
 
 ```
 
-`out := j2c.ReadObjects(in, "list")` is the line that does the work.
 
 `in` is a instance whose struct implements Reader defined as
 ```go
@@ -45,7 +44,7 @@ type Reader interface {
 }
 ```
 
-
+`out := j2c.ReadObjects(in, "list")` is the line that does the work.
 The output `out` is a channel that receives objects as strings as they are made available.
 
 Output
