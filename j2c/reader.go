@@ -1,44 +1,64 @@
 package j2c
 
-func ReadUntilGivenElement(in Reader, element string) (found bool) {
-	found = false
-	var eof bool
-	word := ""
-	for !found {
-		found, word, eof = ReadUntilNextElement(in)
-		if eof { // ???
-			found = false
-			return
+func ReadObjects(in Reader, element string) (out chan string) {
+	out = make(chan string)
+
+	go func() {
+
+		interpreter := BuildInterpreter(in)
+
+		//Need new implementation of `ReadUntilGivenElement()`
+		found := ReadUntilGivenElement(interpreter, element)
+		if !found {
+			close(out)
 		}
-		if found && word == element {
-			found = true
-			return
-		}
-	}
-	return
+
+		readArr(interpreter, out)
+		close(out)
+
+	}()
+	return out
+
 }
 
-func ReadUntilNextElement(in Reader) (found bool, word string, eof bool) {
-	isWord := false
-	word = ""
-	var letter byte
-
+func readArr(interpreter *Interpreter, out chan string) {
+	var b byte
+	var eof bool
+	word := ""
+	interpreter.ResetBrackets()
 	for {
-		letter, eof = in.Next()
+		b, eof = interpreter.Next()
 		if eof {
 			return
 		}
-		if letter == QUOTE {
-			if isWord {
-				found = true
-				return
-			}
-			isWord = true
+
+		if interpreter.lb < 1 {
 			continue
 		}
-		if isWord {
-			word += string(letter)
+		if b == LB && interpreter.lb == 1 {
+			interpreter.ResetSquiggly()
+			continue
 		}
+		if interpreter.lb == interpreter.rb {
+			return
+		}
+
+		if interpreter.ls == 0 {
+			continue
+		}
+
+		if interpreter.ls == interpreter.rs && b == RS {
+
+			word += string(b)
+			out <- word
+			word = ""
+			interpreter.ResetSquiggly()
+
+			continue
+
+		}
+
+		word += string(b)
 
 	}
 
