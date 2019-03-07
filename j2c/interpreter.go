@@ -11,7 +11,17 @@ type Interpreter struct {
 	ls, rs, lb, rb int
 }
 
-func (i *Interpreter) Read() (b byte, eof bool) {
+func (i *Interpreter) ResetBrackets() {
+	i.lb = 0
+	i.rb = 0
+}
+
+func (i *Interpreter) ResetSquiggly() {
+	i.ls = 0
+	i.rs = 0
+}
+
+func (i *Interpreter) Next() (b byte, eof bool) {
 	b, eof = i.reader.Next()
 
 	switch b {
@@ -38,4 +48,8 @@ func (i *Interpreter) Depth() int {
 
 func (i *Interpreter) InArr() bool {
 	return i.lb > i.rb
+}
+
+func (i *Interpreter) IsStarted() bool {
+	return i.ls-i.rs == 1
 }
