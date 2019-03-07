@@ -13,14 +13,20 @@ type Interpreter struct {
 
 func (i *Interpreter) Read() (b byte, eof bool) {
 	b, eof = i.reader.Next()
-	if b == LS {
+
+	switch b {
+	case LS:
 		i.ls++
-	} else if b == RS {
+		break
+	case RS:
 		i.rs++
-	} else if b == LB {
+		break
+	case LB:
 		i.lb++
-	} else if b == RB {
+		break
+	case RB:
 		i.rb++
+		break
 	}
 
 	return
