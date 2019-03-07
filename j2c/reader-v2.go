@@ -36,7 +36,6 @@ func readArr(interpreter *Interpreter, out chan string) {
 			continue
 		}
 		if b == LB && interpreter.lb == 1 {
-			//Array starting
 			interpreter.ResetSquiggly()
 			continue
 		}
