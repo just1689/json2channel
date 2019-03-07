@@ -9,8 +9,8 @@ import (
 
 func main() {
 
-	runFileExample()
-	//runLargeExample()
+	//runFileExample()
+	runLargeExample()
 
 }
 
@@ -42,14 +42,14 @@ func runLargeExample() {
 		count++
 	}
 	duration := time.Since(start)
-	ips := int(float64(count) / duration.Seconds())
+	ips := int(count / int(duration.Seconds()))
 	fmt.Println("Finished", count, duration, "@ ", ips, " items per second")
 
 }
 
 func makeGiantSlice() (w *Wrapper) {
 	w = &Wrapper{
-		List: make([]Item, 1000*1000),
+		List: make([]Item, 10*1000*1000),
 	}
 	for i, _ := range w.List {
 		w.List[i] = Item{
