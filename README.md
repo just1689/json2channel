@@ -36,8 +36,17 @@ Call the library
 
 ```
 
-- `ch` is a channel that accepts bytes.
-- The output `out` is a channel that receives objects as strings as they are made available.
+`out := j2c.ReadObjects(in, "list")` is the line that does the work.
+
+`in` is a instance whose struct implements Reader defined as
+```go
+type Reader interface {
+	Next() (b byte, eof bool)
+}
+```
+
+
+The output `out` is a channel that receives objects as strings as they are made available.
 
 Output
 
