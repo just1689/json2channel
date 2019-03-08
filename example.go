@@ -26,9 +26,7 @@ func runFileExample() {
 
 func runLargeExample() {
 	fmt.Println("Preparing for large example")
-	silly := Wrapper{
-		List: make([]Item, 10*1000*1000),
-	}
+	silly := makeGiantSlice()
 	b, _ := json.Marshal(silly)
 	fmt.Println("Prep done.")
 
