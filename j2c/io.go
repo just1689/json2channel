@@ -19,6 +19,14 @@ type ReaderItem struct {
 	Bytes []byte
 }
 
+func (r *ReaderItem) Next() (b byte, eof bool) {
+	n, err := r.Body.Read(r.Bytes)
+	if err != nil || n == 0 {
+		return 0, true
+	}
+	return r.Bytes[0], false
+}
+
 type ChanReader struct {
 	in       chan *frame
 	current  *frame
