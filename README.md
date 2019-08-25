@@ -60,6 +60,6 @@ Output
 
 
 # Performance 
-Currently, in small tests the library produces over 900k items per second.
+Currently, in small tests the library produces over 500k items per second.
 
  
