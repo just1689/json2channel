@@ -6,6 +6,19 @@ import (
 	"os"
 )
 
+func NewReaderItemFromReadCloser(body io.ReadCloser) *ReaderItem {
+	result := ReaderItem{
+		Body:  body,
+		Bytes: make([]byte, 1),
+	}
+	return &result
+}
+
+type ReaderItem struct {
+	Body  io.ReadCloser
+	Bytes []byte
+}
+
 type ChanReader struct {
 	in       chan *frame
 	current  *frame

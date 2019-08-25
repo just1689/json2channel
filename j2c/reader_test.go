@@ -37,6 +37,87 @@ var bytesNestedMessy = []byte(`{
   ]
 }`)
 
+var bytesRootless = []byte(`
+[
+   {
+      "entity":"car",
+      "id":"1",
+      "v":{
+         "name":"justin"
+      }
+   },
+   {
+      "entity":"car",
+      "id":"2",
+      "v":{
+         "name":"justin"
+      }
+   },
+   {
+      "entity":"user",
+      "id":"5",
+      "v":{
+         "x":"y",
+         "body":{
+            "arr":[
+               {
+                  "id":1
+               },
+               {
+                  "id":2
+               },
+               {
+                  "id":3
+               }
+            ]
+         },
+         "Whaaat":"ytou never"
+      }
+   },
+   {
+      "entity":"user",
+      "id":"0",
+      "v":{
+         "x":"y",
+         "body":{
+            "arr":[
+               {
+                  "id":1
+               },
+               {
+                  "id":2
+               },
+               {
+                  "id":3
+               }
+            ]
+         },
+         "Whaaat":"ytou never"
+      }
+   },
+   {
+      "entity":"user",
+      "id":"11",
+      "v":{
+         "x":"y",
+         "body":{
+            "arr":[
+               {
+                  "id":1
+               },
+               {
+                  "id":2
+               },
+               {
+                  "id":3
+               }
+            ]
+         },
+         "Whaaat":"ytou never"
+      }
+   }
+]`)
+
 func TestReadJsonObjects(t *testing.T) {
 	expected := getExpectedMap()
 
@@ -77,6 +158,22 @@ func TestReadJsonObjectsMessyNames(t *testing.T) {
 	l := len(expected)
 	if l > 0 {
 		t.Fatal("Expected 0 items left over, not ", l)
+	}
+
+}
+
+func TestReadJsonObjectsRootless(t *testing.T) {
+
+	in := StartByteReader(bytesRootless)
+	out := ReadObjects(in, ".")
+
+	count := 0
+	for _ = range out {
+		count++
+	}
+	if count != 5 {
+		t.Error("Intead of 5 rows returned, returned ", count)
+		return
 	}
 
 }

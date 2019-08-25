@@ -7,10 +7,13 @@ func ReadObjects(in Reader, element string) (out chan string) {
 
 		interpreter := BuildInterpreter(in)
 
-		//Need new implementation of `ReadUntilGivenElement()`
-		found := ReadUntilGivenElement(interpreter, element)
-		if !found {
-			close(out)
+		if element != "." {
+			//Need new implementation of `ReadUntilGivenElement()`
+			found := ReadUntilGivenElement(interpreter, element)
+			if !found {
+				close(out)
+			}
+
 		}
 
 		readArr(interpreter, out)
